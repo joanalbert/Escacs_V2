@@ -1,0 +1,27 @@
+1. que pueda situar las piezas de ajedrez dentro del tablero de manera aleatoria y la cantidad de piezas que yo quiera siempre que no supere el limete legal
+   de una partida de ajedrez
+
+2. que pueda saber las diferentes simertrias que se producen  entre las piezas en una posicion determinada dentro del tablero de ajedrez
+
+3. que pueda saber con un punto de color negro donde se produce la intercepcion de las lineas que generan varias piezas  de ajedrez
+   dentro del tablero es decir la vertical y la horizontal mas la diagonal de las piezas a lo largo de todo el tablero  es decir donde
+   se cruzan las lineas las diagonales verticales y horizontales
+
+4. que el programa pueda contar la cantidad de veces que se mueve una pieza determinada mientras se juega una
+   partida de ajedrez o en una posicion prederteminada y en que jugada se mueve el numero de la jugada que se mueve
+
+5. que los cuadrados del tablero de ajedrez tengan un valor numerico los cuadrados de color blanco su valor
+   sea el numero 1 y los cuadrados negros que su valor sea el numero 0
+
+6. que los cuadrados del tablero de ajedrez tengan un simbolo especifico cada una para el color blanco el
+   simbolo sea + y para el color negro el simbolo sea -  y que se reflege en cada jugada dentro de una partida de ajedrez o posicion aleatoria
+
+7. que en una posicion de una partida de ajedrez pueda saber si es una posicion ganadora  ganadora o al contrario una posicion perdedora
+
+8. que el programa tenga la facultad de poder formular preguntas sobre dicho tablero de ajedrez
+
+9. quiero que el programa sepa valorar una posicion de las piezas durante una partida de ajedrez
+   o en una posicion aleatoria de si es un aposicion ganadora o una posicion perdedora es decir una posicion favorable o una posicion desfavorable
+
+10. que tenga los matices necesarios para que sea conprensible y facil de ejecutar
+

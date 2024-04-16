@@ -1,0 +1,57 @@
+* {
+    user-select:none; 
+}
+
+.chessBoard{
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+}
+
+.chessRow{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 0px;    
+}
+
+
+
+.chessCell{
+    width: 70px;
+    height: 70px;
+    margin: 1px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+.chessCell > p {
+    font-weight: bolder;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.chessPieceImage{
+    pointer-events: none;
+    
+}
+
+.chessPieceImageSelected{
+    transform: rotateZ(-25deg);
+}
+
+
+button > strong {
+    pointer-events: none; /*IMPORTANT: or else click events will target the strong tags inside the buttons*/
+}
+
+
+
+
+
+
