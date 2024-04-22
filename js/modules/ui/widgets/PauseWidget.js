@@ -4,7 +4,7 @@ import {KEYS} from "/js/modules/ui/events/KeysEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {WidgetElement} from "/js/modules/ui/widgets/WidgetElement.js";
 import {ModeSelectWidget} from "/js/modules/ui/widgets/ModeSelectWidget.js";
-import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js"
+import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
 
 export class PauseWidget extends KeyWidget{
     
@@ -31,11 +31,12 @@ export class PauseWidget extends KeyWidget{
     
     
     //////////CREATE DELETE//////////
+    
+    //Override
     delete(){
-        if(this.baseElement){
-            DOM_Utils.DELETE_ELEMENT(this.baseElement)
-        }
-            
+        super.delete();
+        
+        //YOUR CODE
     }
     create(){
        let background = DOM_Utils.CREATE_ELEMENT(DOM_ELEMENTS.DIV)
@@ -49,6 +50,7 @@ export class PauseWidget extends KeyWidget{
         
         
         this.baseElement = background;
+        this.baseElement.setAttribute("widget", true);
         
         this.makeUI();
         this.widgetEvents();
@@ -61,10 +63,12 @@ export class PauseWidget extends KeyWidget{
     //WIDGET EVENTS
     widgetEvents(){
         
-        let modeWidget = new ModeSelectWidget(this.elements["pause_btn_4"].domElement);
-        UIEventManager.LATE_EVENT_SETUP();
-        
-        
+        let w = this.childWidgets.find( (e) => e.name == "Mode Select"); 
+        if(!w){
+            let modeWidget = new ModeSelectWidget(this.elements["pause_btn_4"].domElement);
+            UIEventManager.LATE_EVENT_SETUP();
+            this.childWidgets.push(modeWidget);
+        }
     }
     
     
@@ -76,6 +80,8 @@ export class PauseWidget extends KeyWidget{
         this.button3();
         this.button4();
         this.header();
+        
+        super.makeUI();
     }
     
     //MAIN CONTAINER
@@ -91,7 +97,7 @@ export class PauseWidget extends KeyWidget{
             .addClass("flex-column")
             .addClass("align-items-center")
             .addToDom(this.baseElement);
-        
+            
         this.elements[name] = container;
     }
     

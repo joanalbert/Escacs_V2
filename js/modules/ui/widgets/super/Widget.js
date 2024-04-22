@@ -1,5 +1,5 @@
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js"
-
+import { DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 export class Widget{
     
     constructor(name, event){
@@ -18,6 +18,29 @@ export class Widget{
     toggle(){
         this.active = !this.active;
         (this.active) ? this.toggle_on() : this.toggle_off();
+    }
+    
+    delete(){
+        
+        if(this.childWidgets.length > 0)
+        {
+            this.childWidgets.forEach(w => {
+                w.delete();
+                UIEventManager.WIDGET_REMOVE(w)
+            })
+                        
+            this.childWidgets = [];
+        }
+        
+        if(this.baseElement){
+            DOM_Utils.DELETE_ELEMENT(this.baseElement)
+        }
+    }
+    
+    makeUI(){
+        let widgetsOnScreen = document.querySelectorAll('[widget="true"]');
+        let zIndex = (widgetsOnScreen.length < 1) ? 1 : widgetsOnScreen.length;
+        this.baseElement.domElement.style.zIndex = `${zIndex}`;
     }
     
     toggle_on(){console.error("you need to override this funcion!")}

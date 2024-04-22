@@ -7,6 +7,7 @@ export class BoardEffects{
     
     
     static ToggleSelect(piece){  
+        if(!piece) return;
         let img = BoardManager.getCellPieceImageFromPos(piece.position);
         img.classList.toggle("chessPieceImageSelected");
     }

@@ -13,9 +13,12 @@ export class UIEventManager{
 
     static WIDGET_REMOVE(widget){
         UIEventManager.WIDGET_CHECK(widget); 
-        let w = UIEventManager.WIDGETS.find( (e) => e === widget); 
+        let w = UIEventManager.SETUP_WIDGETS.find( (e) => e === widget); 
         if(!w) throw new Error("bad widget");
         document.removeEventListener(w.event, w.func_ref);
+        
+        UIEventManager.SETUP_WIDGETS = UIEventManager.SETUP_WIDGETS.filter( w => w !== widget)
+        UIEventManager.WIDGETS = UIEventManager.WIDGETS.filter( w => w !== widget)
     }
  
     static EVENT_SETUP(){
@@ -47,6 +50,7 @@ export class UIEventManager{
         })
         
         console.log(UIEventManager.SETUP_WIDGETS);
+        console.log(UIEventManager.WIDGETS);
     }
 
     

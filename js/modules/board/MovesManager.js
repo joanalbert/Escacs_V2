@@ -34,7 +34,8 @@ export class MovesManager{
     
     handleCellClick(clickedCell){
         let pos = clickedCell.position;
-                
+        
+        if(!this.origin && !BoardManager.cellsMap.get(clickedCell.id)) return; //empty
         
         //selection process
         if(!this.origin){
