@@ -26,5 +26,5 @@
 10. que tenga los matices necesarios para que sea conprensible y facil de ejecutar
 
 
-git auth token: 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
+
 
