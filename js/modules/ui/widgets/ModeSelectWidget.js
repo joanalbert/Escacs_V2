@@ -3,7 +3,7 @@ import {MOUSE_EVENTS} from "/js/modules/ui/events/EventEnum.js";
 import { MODES } from "/js/modules/modes/ModesEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
-
+import {YesNoPromptWidget} from "/js/modules/ui/widgets/YesNoPromptWidget.js";
 
 export class ModeSelectWidget extends MouseWidget{
     
@@ -57,6 +57,22 @@ export class ModeSelectWidget extends MouseWidget{
     
     
     widgetEvents(){
+        
+        let arrModes = Object.values(MODES);
+        
+        for(let i = 0; i < arrModes.length; i++){
+            
+            let name = (arrModes[i].replace(" ","_")) + "_prompt";
+            let prompt = this.childWidgets.find( (e) => e.name == name );
+            
+            if(!prompt){
+                prompt = new YesNoPromptWidget(name, this.elements[`modeselect_btn_${i}`].domElement);
+                UIEventManager.LATE_EVENT_SETUP();
+                this.childWidgets.push(prompt);
+            }
+            
+        }
+        
         
     }
     

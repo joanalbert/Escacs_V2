@@ -4,10 +4,12 @@ import { MODES } from "/js/modules/modes/ModesEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
 
+
+
 export class YesNoPromptWidget extends MouseWidget{
     
-    constructor(target){
-        super("Yes/No Prompt Widget", MOUSE_EVENTS.CLICK, target);    
+    constructor(name, target){
+        super(name, MOUSE_EVENTS.CLICK, target);    
     }
     
     //OVERRIDE
@@ -28,6 +30,7 @@ export class YesNoPromptWidget extends MouseWidget{
         this.delete();
     }
     
+    //OVERRIDE
     delete(){
         super.delete();   
     }
@@ -54,12 +57,75 @@ export class YesNoPromptWidget extends MouseWidget{
     
     widgetEvents(){
         
+        
     }
     
     makeUI(){
         
-        
+        this.prompt_container();
+        this.prompt_btn_yes();
+        this.prompt_btn_no();
+        this.prompt_text();
         
         super.makeUI();
+    }
+    
+    prompt_container(){
+        let name = "prompt_container";
+        
+        let container = DOM_Utils.CREATE_ELEMENT(DOM_ELEMENTS.DIV)
+            .setAttribute("name", name)
+            .addClass("container")
+            //.addClass("bg-warning")
+            .addClass("p-2")
+            .addClass("d-flex")
+            .addClass("flex-column")
+            .addClass("align-items-center")
+            .addToDom(this.baseElement);
+        
+        this.elements[name] = container;
+    }
+    
+    prompt_text(){
+        let name = "prompt_text";
+        
+        let mode_text = this.name.split("_");
+        mode_text.pop();
+        mode_text = mode_text.join(" ");
+        
+        let e = DOM_Utils.CREATE_ELEMENT(DOM_ELEMENTS.DIV)
+            .setAttribute("name", name)
+            .addClass("bg-warning")
+            .addClass("w-25")
+            .addClass("p-2")
+            .addClass("pb-4")
+            .addClass("d-flex")
+            .addClass("flex-column")
+            .addClass("align-items-center")
+            .setInnerHTML(`<h2>Cambiar al modo: ${mode_text}?</h2>`)
+            .addToDom(this.elements["prompt_container"]);
+        
+        this.elements[name] = e;
+    }
+    
+    prompt_btn_yes(){
+        
+        let e = DOM_Utils.CREATE_ELEMENT(DOM_ELEMENTS.BUTTON)
+            .setAttribute("name", "prompt_btn_yes")
+            .setInnerHTML("<strong>YES</strong>")
+            .addClass("w-25")
+            .addClass("m-1")
+            .addToDom(this.elements["prompt_container"]);
+        this.elements[name] = e;
+    }
+    
+    prompt_btn_no(){
+        let e = DOM_Utils.CREATE_ELEMENT(DOM_ELEMENTS.BUTTON)
+            .setAttribute("name", "prompt_btn_no")
+            .setInnerHTML("<strong>NO</strong>")
+            .addClass("w-25")
+            .addClass("m-1")
+            .addToDom(this.elements["prompt_container"]);
+        this.elements[name] = e;
     }
 }
