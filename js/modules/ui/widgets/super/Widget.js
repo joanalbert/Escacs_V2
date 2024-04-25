@@ -11,6 +11,7 @@ export class Widget{
         this.baseElement = null;
         this.elements = [];
         this.childWidgets = [];
+        this.parentWidget = null;
         
         UIEventManager.WIDGET_ADD(this);
     }
@@ -37,6 +38,11 @@ export class Widget{
         }
     }
     
+    addChildWidget(w){
+        this.childWidgets.push(w);
+        w.parentWidget = this;
+    }
+      
     makeUI(){
         let widgetsOnScreen = document.querySelectorAll('[widget="true"]');
         let zIndex = (widgetsOnScreen.length < 1) ? 1 : widgetsOnScreen.length;

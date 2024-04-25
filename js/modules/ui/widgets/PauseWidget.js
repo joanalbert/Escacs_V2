@@ -60,14 +60,14 @@ export class PauseWidget extends KeyWidget{
     ///////////////////////////
     
     
-    //WIDGET EVENTS
+    //Override
     widgetEvents(){
         
         let w = this.childWidgets.find( (e) => e.name == "Mode Select"); 
         if(!w){
             let modeWidget = new ModeSelectWidget(this.elements["pause_btn_4"].domElement);
             UIEventManager.LATE_EVENT_SETUP();
-            this.childWidgets.push(modeWidget);
+            super.addChildWidget(modeWidget);
         }
     }
     

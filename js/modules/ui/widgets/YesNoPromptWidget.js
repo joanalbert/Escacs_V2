@@ -1,15 +1,17 @@
+import {Widget} from "/js/modules/ui/widgets/super/Widget.js";
 import {MouseWidget} from "/js/modules/ui/widgets/super/MouseWidget.js";
 import {MOUSE_EVENTS} from "/js/modules/ui/events/EventEnum.js";
 import { MODES } from "/js/modules/modes/ModesEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
-
+import {RESOLUTION_ACTIONS} from "/js/modules/ui/widgets/util/PromptResolver.js";
 
 
 export class YesNoPromptWidget extends MouseWidget{
     
-    constructor(name, target){
+    constructor(name, target, rAction){
         super(name, MOUSE_EVENTS.CLICK, target);    
+        this.resolutionAction = rAction;
     }
     
     //OVERRIDE
@@ -56,6 +58,38 @@ export class YesNoPromptWidget extends MouseWidget{
     }
     
     widgetEvents(){
+        
+        let yes_btn = this.elements["prompt_btn_yes"].domElement;
+        yes_btn.addEventListener("click", (e) => this.prompt_resolve(true));
+        
+        let no_btn = this.elements["prompt_btn_no"].domElement;
+        no_btn.addEventListener("click", (e) => this.prompt_resolve(false));
+    }
+    
+    prompt_resolve(choice){
+        
+        console.log(choice);
+        
+        if(choice)
+        {
+            //get top-of-the-chain widget
+            let top = this;
+            while(top.parentWidget != null) top = top.parentWidget;
+
+
+            //untoggle top-of-the-chain widget
+            if(top.active) {
+                const superToggle = Widget.prototype.toggle.bind(top);
+                superToggle();
+            }
+            
+        }
+        else
+        {
+            //manually untoggle this prompt
+            const superToggle = Widget.prototype.toggle.bind(this);
+            superToggle();
+        }
         
         
     }
@@ -116,7 +150,7 @@ export class YesNoPromptWidget extends MouseWidget{
             .addClass("w-25")
             .addClass("m-1")
             .addToDom(this.elements["prompt_container"]);
-        this.elements[name] = e;
+        this.elements["prompt_btn_yes"] = e;
     }
     
     prompt_btn_no(){
@@ -126,6 +160,6 @@ export class YesNoPromptWidget extends MouseWidget{
             .addClass("w-25")
             .addClass("m-1")
             .addToDom(this.elements["prompt_container"]);
-        this.elements[name] = e;
+        this.elements["prompt_btn_no"] = e;
     }
 }

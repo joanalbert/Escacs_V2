@@ -3,7 +3,8 @@ import {MOUSE_EVENTS} from "/js/modules/ui/events/EventEnum.js";
 import { MODES } from "/js/modules/modes/ModesEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
-import {YesNoPromptWidget} from "/js/modules/ui/widgets/YesNoPromptWidget.js";
+import {YesNoModeSwitchPrompt} from "/js/modules/ui/widgets/YesNoModeSwitchPrompt.js";
+import {RESOLUTION_ACTIONS} from "/js/modules/ui/widgets/util/PromptResolver.js";
 
 export class ModeSelectWidget extends MouseWidget{
     
@@ -66,9 +67,13 @@ export class ModeSelectWidget extends MouseWidget{
             let prompt = this.childWidgets.find( (e) => e.name == name );
             
             if(!prompt){
-                prompt = new YesNoPromptWidget(name, this.elements[`modeselect_btn_${i}`].domElement);
+                prompt = new YesNoModeSwitchPrompt(name,
+                                                   this.elements[`modeselect_btn_${i}`].domElement,
+                                                   RESOLUTION_ACTIONS.MODE_SWITCH,
+                                                   MODES.TEST_MODE);
+                
                 UIEventManager.LATE_EVENT_SETUP();
-                this.childWidgets.push(prompt);
+                super.addChildWidget(prompt);
             }
             
         }
