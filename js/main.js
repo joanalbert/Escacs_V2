@@ -9,6 +9,7 @@ import {Vector} from "/js/modules/math/Vector.js";
 import {GameMode} from "/js/modules/modes/GameMode.js";
 import {NormalMatch} from "/js/modules/modes/NormalMatch.js";
 import {TestMode} from "/js/modules/modes/TestMode.js";
+import { MODES } from "/js/modules/modes/ModesEnum.js";
 
 /*pieces*/
 import {Piece} from "/js/modules/pieces/Piece.js";
@@ -40,7 +41,7 @@ BoardManager.boardDimensions = dimensions;
 let board = new BoardBuilder(dimensions).build();
 let movesManager = new MovesManager();
 
-ModeManager.LaunchMode(new NormalMatch());
+ModeManager.LaunchMode(MODES.TEST_MODE);
 console.log(ModeManager.GAME_IN_PROGRESS);
 
 

@@ -1,6 +1,6 @@
 import {MouseWidget} from "/js/modules/ui/widgets/super/MouseWidget.js";
 import {MOUSE_EVENTS} from "/js/modules/ui/events/EventEnum.js";
-import { MODES } from "/js/modules/modes/ModesEnum.js";
+import { MODES, DISPLAY_NAMES_EN } from "/js/modules/modes/ModesEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
 import {YesNoModeSwitchPrompt} from "/js/modules/ui/widgets/YesNoModeSwitchPrompt.js";
@@ -70,7 +70,7 @@ export class ModeSelectWidget extends MouseWidget{
                 prompt = new YesNoModeSwitchPrompt(name,
                                                    this.elements[`modeselect_btn_${i}`].domElement,
                                                    RESOLUTION_ACTIONS.MODE_SWITCH,
-                                                   MODES.TEST_MODE);
+                                                   arrModes[i]);
                 
                 UIEventManager.LATE_EVENT_SETUP();
                 super.addChildWidget(prompt);
@@ -111,7 +111,7 @@ export class ModeSelectWidget extends MouseWidget{
 
     buttons(){
         
-        let arrModes = Object.values(MODES);
+        let arrModes = Object.values(DISPLAY_NAMES_EN);
         
         
         for(let i = 0; i < arrModes.length; i++){

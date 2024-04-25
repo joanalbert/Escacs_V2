@@ -17,6 +17,8 @@ export class YesNoModeSwitchPrompt extends YesNoPromptWidget {
         
         if(choice){
             //handle prompt resolution
+            
+            PromptResolver.GET_PACKAGE().mode = this.mode;
             PromptResolver.RESOLVE(this.resolutionAction);
         }
         
