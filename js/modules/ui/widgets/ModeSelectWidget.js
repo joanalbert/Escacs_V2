@@ -70,7 +70,8 @@ export class ModeSelectWidget extends MouseWidget{
                 prompt = new YesNoModeSwitchPrompt(name,
                                                    this.elements[`modeselect_btn_${i}`].domElement,
                                                    RESOLUTION_ACTIONS.MODE_SWITCH,
-                                                   arrModes[i]);
+                                                   arrModes[i],
+                                                   "Cambiar modo a");
                 
                 UIEventManager.LATE_EVENT_SETUP();
                 super.addChildWidget(prompt);

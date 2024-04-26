@@ -2,7 +2,8 @@ import { MODES } from "/js/modules/modes/ModesEnum.js";
 import { ModeManager } from "/js/modules/modes/ModeManager.js";
 
 export const RESOLUTION_ACTIONS = {
-    MODE_SWITCH: "MODE_SWITCH",
+    MODE_SWITCH:  "MODE_SWITCH",
+    MODE_RESTART: "MODE_RESTART"
 }
 
 export class PromptResolver{
@@ -27,6 +28,11 @@ export class PromptResolver{
                     console.log(`NOW LAUNCHING ${mode}... `);
                     ModeManager.LaunchMode(mode);
                 break;
+            case RESOLUTION_ACTIONS.MODE_RESTART:
+                //
+                ModeManager.RestartMode();    
+                break;
+                
             default:
                 console.log("we defaulted");
                 break;

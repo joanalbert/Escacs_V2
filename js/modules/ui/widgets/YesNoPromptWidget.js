@@ -9,9 +9,10 @@ import {RESOLUTION_ACTIONS} from "/js/modules/ui/widgets/util/PromptResolver.js"
 
 export class YesNoPromptWidget extends MouseWidget{
     
-    constructor(name, target, rAction){
+    constructor(name, target, rAction, prompt_msg){
         super(name, MOUSE_EVENTS.CLICK, target);    
         this.resolutionAction = rAction;
+        this.prompt_msg = prompt_msg;
     }
     
     //OVERRIDE
@@ -136,7 +137,7 @@ export class YesNoPromptWidget extends MouseWidget{
             .addClass("d-flex")
             .addClass("flex-column")
             .addClass("align-items-center")
-            .setInnerHTML(`<h2>Cambiar al modo: ${mode_text}?</h2>`)
+            .setInnerHTML(`<h2>${this.prompt_msg}: ${mode_text}?</h2>`)
             .addToDom(this.elements["prompt_container"]);
         
         this.elements[name] = e;

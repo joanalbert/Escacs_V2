@@ -4,7 +4,10 @@ import {KEYS} from "/js/modules/ui/events/KeysEnum.js";
 import { DOM_ELEMENTS, CSS_PROPERTIES, DOM_Utils } from "/js/modules/ui/DOM/DOM_Utils.js";
 import {WidgetElement} from "/js/modules/ui/widgets/WidgetElement.js";
 import {ModeSelectWidget} from "/js/modules/ui/widgets/ModeSelectWidget.js";
+import {YesNoModeRestartWidget} from "/js/modules/ui/widgets/YesNoModeRestartWidget.js";
 import {UIEventManager} from "/js/modules/ui/events/UIEventManager.js";
+import {RESOLUTION_ACTIONS} from "/js/modules/ui/widgets/util/PromptResolver.js";
+import {ModeManager} from "/js/modules/modes/ModeManager.js";
 
 export class PauseWidget extends KeyWidget{
     
@@ -63,11 +66,27 @@ export class PauseWidget extends KeyWidget{
     //Override
     widgetEvents(){
         
+        //mode select widget
         let w = this.childWidgets.find( (e) => e.name == "Mode Select"); 
         if(!w){
             let modeWidget = new ModeSelectWidget(this.elements["pause_btn_4"].domElement);
             UIEventManager.LATE_EVENT_SETUP();
             super.addChildWidget(modeWidget);
+        }
+        
+        
+        //mode restartw widget
+        let restart_w = this.childWidgets.find( (e) => e instanceof YesNoModeRestartWidget);
+        if(!restart_w){
+            
+            let restart_w = new YesNoModeRestartWidget(
+                                                        this.elements["pause_btn_2"].domElement,
+                                                        RESOLUTION_ACTIONS.MODE_RESTART,
+                                                        ModeManager.CURRENT_GAME.mode_id,
+                                                        "Reiniciar partida?"
+                                                       );
+            UIEventManager.LATE_EVENT_SETUP();
+            super.addChildWidget(restart_w);
         }
     }
     

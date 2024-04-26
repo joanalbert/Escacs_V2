@@ -34,6 +34,15 @@ export class ModeManager {
         console.log(`now playing: ${game.mode_id}`);
     }
 
+    static RestartMode(){
+        
+        if(ModeManager.GAME_IN_PROGRESS && ModeManager.CURRENT_GAME != null){
+            console.log(`now restarting ${ModeManager.CURRENT_GAME.mode_id}`)
+            BoardManager.resetBoard();
+            ModeManager.CURRENT_GAME.setup();
+        }
+        
+    }
 
     static INSTANTIATE_GAME(mode){
         

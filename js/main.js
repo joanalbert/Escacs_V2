@@ -41,7 +41,7 @@ BoardManager.boardDimensions = dimensions;
 let board = new BoardBuilder(dimensions).build();
 let movesManager = new MovesManager();
 
-ModeManager.LaunchMode(MODES.TEST_MODE);
+ModeManager.LaunchMode(MODES.NORMAL_MATCH);
 console.log(ModeManager.GAME_IN_PROGRESS);
 
 
