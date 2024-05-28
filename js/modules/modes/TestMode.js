@@ -24,7 +24,7 @@ export class TestMode extends GameMode{
     //Override
     setup(){
         
-        let p = new Pawn(new Vector(5,5), Piece.COLOR.WHITE);
+        let p = new Queen(new Vector(5,5), Piece.COLOR.WHITE);
         BoardManager.addPiece(p, true);
     }
 }

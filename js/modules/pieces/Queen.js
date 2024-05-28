@@ -9,7 +9,7 @@ export class Queen extends Piece {
 
     
     isMoveLegal(move){
-        return LegalityRules.NotDiagonal(move) || LegalityRules.Diagonal(move);
+        return LegalityRules.NotDiagonal_V2(move) || LegalityRules.Diagonal_V2(move);
     }
     
     salute(){

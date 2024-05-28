@@ -35,6 +35,8 @@ export class BoardMove{
     
     validate(){
     
+    
+        
         //
         let validStart    = this.checkPieceAtOrigin();
         let isValidLength = this.checkPathLength();
@@ -50,6 +52,8 @@ export class BoardMove{
             this.status = "ILLEGAL";
             return;
         }
+        
+        
         
         
         let obstructed = this.checkPathObstructed();
