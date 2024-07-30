@@ -12,14 +12,19 @@ import {Pawn} from "/js/modules/pieces/Pawn.js";
 import {King} from "/js/modules/pieces/King.js";
 import {Queen} from "/js/modules/pieces/Queen.js";
 
+/*settings*/
+import {ModeSettings} from "/js/modules/modes/ModeSettings.js";
+
 /*board*/
 import {BoardManager} from "/js/modules/board/BoardManager.js";
 
 
 export class NormalMatch extends GameMode {
     
-    constructor(){
+    constructor(_settings){
         super(MODES.NORMAL_MATCH)
+        
+        this.settings = (_settings == null) ? this.loadDefaultSettings() : _settings;
     }
     
     //Override
@@ -30,6 +35,15 @@ export class NormalMatch extends GameMode {
         
         this.others(Piece.COLOR.WHITE);
         this.others(Piece.COLOR.BLACK);
+    }
+    
+    //Override
+    loadDefaultSettings(){
+        let settings = new ModeSettings()
+                           .TracksMoves(true)
+                           .TracksTime(true)
+                           .CollectsPieces(true);
+        return settings;
     }
     
     pawns(color){

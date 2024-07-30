@@ -15,10 +15,15 @@ import {Queen} from "/js/modules/pieces/Queen.js";
 /*board*/
 import {BoardManager} from "/js/modules/board/BoardManager.js";
 
+/*settings*/
+import {ModeSettings} from "/js/modules/modes/ModeSettings.js";
+
 export class TestMode extends GameMode{
     
-    constructor(){
+    constructor(_settings){
         super(MODES.TEST_MODE);
+        
+        this.settings = (_settings == null) ? this.loadDefaultSettings() : _settings
     }
     
     //Override
@@ -26,5 +31,23 @@ export class TestMode extends GameMode{
         
         let p = new Queen(new Vector(5,5), Piece.COLOR.WHITE);
         BoardManager.addPiece(p, true);
+        
+        p = new Queen(new Vector(6,5), Piece.COLOR.BLACK);
+        BoardManager.addPiece(p, true);
+        
+        p = new Queen(new Vector(7,5), Piece.COLOR.BLACK);
+        BoardManager.addPiece(p, true);
+        
+        p = new Queen(new Vector(8,5), Piece.COLOR.BLACK);
+        BoardManager.addPiece(p, true);
+    }
+    
+    //Override
+    loadDefaultSettings(){
+        let settings = new ModeSettings()
+                           .TracksMoves(false)
+                           .TracksTime(false)
+                           .CollectsPieces(false);
+        return settings;
     }
 }

@@ -34,9 +34,6 @@ export class BoardMove{
     
     
     validate(){
-    
-    
-        
         //
         let validStart    = this.checkPieceAtOrigin();
         let isValidLength = this.checkPathLength();
@@ -52,9 +49,6 @@ export class BoardMove{
             this.status = "ILLEGAL";
             return;
         }
-        
-        
-        
         
         let obstructed = this.checkPathObstructed();
         if(obstructed){
@@ -128,9 +122,17 @@ export class BoardMove{
         if(!this.validated)
             console.warn("WARNING: Executing non-validated move.\nExpect undefined behavior\n")
         
+        let kill = false;
+        
         //remove eaten piece
         if(this.eatenPiece){
-            BoardManager.removePiece(this.eatenPiece, false);
+            
+            //SETTING CHECK: tracks moves
+            kill = true;
+            this.notifyMoveTracker(this);
+            
+            
+            BoardManager.removePiece(this.eatenPiece, false, true);
             this.piece.kills ++;
             console.log("kill!");
         }
@@ -139,11 +141,20 @@ export class BoardMove{
         let id = BoardBuilder.getCellAlgebraicName(this.piece.position);
         BoardManager.movePiece(id, this.destination, false);
         
+        //SETTING CHECK: tracks moves (if the setting has already been checked
+        //                             we can ignore it)
+        if(!kill) this.notifyMoveTracker(this);
+        
         //refresh the board
         BoardManager.refreshBoard();
         
+        
         this.status = "FINISHED";
         this.finished = true;
+    }
+
+    notifyMoveTracker(move){
+        BoardManager.TrackMove(move);
     }
 }
 

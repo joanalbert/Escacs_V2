@@ -16,7 +16,9 @@ export class ModeManager {
     static LaunchMode(mode){
         
         //before launching any mode, let's first check if a borad has been built or not
-        if(!ModeManager.CheckBoardExists()) throw new Error("There's no board to play on! We need to build it first");
+        if(!ModeManager.CheckBoardExists()){
+            throw new Error("There's no board to play on! We need to build it first");
+        }
         
         ModeManager.GAME_IN_PROGRESS = true;
         
@@ -24,14 +26,26 @@ export class ModeManager {
         if(ModeManager.CURRENT_GAME != null){
             //throw new Error("not yet buddy")
             BoardManager.resetBoard();
+            BoardManager.resetPieceBoxes();
+            BoardManager.resetMoveTracker();
         }
         
         let game = ModeManager.INSTANTIATE_GAME(mode);
         
-        ModeManager.CURRENT_GAME = game
+        ModeManager.CURRENT_GAME = game;
         ModeManager.CURRENT_GAME.setup();
         
+        //update board UI based on this mode's settings
+        ModeManager.notify_board_based_on_settings();
+        
+        
         console.log(`now playing: ${game.mode_id}`);
+        console.log(ModeManager.CURRENT_GAME.settings);
+    }
+
+    static notify_board_based_on_settings()
+    {
+        BoardBuilder.NotifyModeSettings(ModeManager.CURRENT_GAME.settings);
     }
 
     static RestartMode(){
@@ -39,6 +53,9 @@ export class ModeManager {
         if(ModeManager.GAME_IN_PROGRESS && ModeManager.CURRENT_GAME != null){
             console.log(`now restarting ${ModeManager.CURRENT_GAME.mode_id}`)
             BoardManager.resetBoard();
+            BoardManager.resetPieceBoxes();
+            BoardManager.resetMoveTracker();
+            
             ModeManager.CURRENT_GAME.setup();
         }
         
@@ -60,6 +77,7 @@ export class ModeManager {
                 break;
         }
         
+                
         return game;
     }
 

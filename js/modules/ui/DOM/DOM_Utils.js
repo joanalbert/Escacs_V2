@@ -28,4 +28,23 @@ export class DOM_Utils{
     static APPEND_ELEMENT(element, parent){
         parent.insertBefore(element, parent.firstChild);
     }
+
+
+    static CLEAR_PIECE_BOXES(){
+        let b = document.getElementById("box_black");
+        let w = document.getElementById("box_white");
+        
+        while (b.lastElementChild) {
+            b.removeChild(b.lastElementChild);
+        }
+        
+        while (w.lastElementChild) {
+            w.removeChild(w.lastElementChild);
+        }
+    }
+
+    static CLEAR_MOVE_TRACKER(){
+        let list = document.getElementById("move_tracker_list");
+        list.innerHTML="";
+    }
 }

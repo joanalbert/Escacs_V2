@@ -23,4 +23,6 @@ export class Pawn extends Piece {
     salute(){
         console.log("hello pawn");
     }
+    
+
 }

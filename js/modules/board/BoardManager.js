@@ -2,6 +2,8 @@ import {Vector} from "/js/modules/math/Vector.js";
 import {Piece} from "/js/modules/pieces/Piece.js";
 import {MovesManager} from "/js/modules/board/MovesManager.js";
 import {BoardBuilder} from "/js/modules/board/BoardBuilder.js";
+import {ModeManager} from "/js/modules/modes/ModeManager.js";
+import {DOM_Utils} from "/js/modules/ui/DOM/DOM_Utils.js";
 
 export class BoardManager{
     
@@ -78,12 +80,21 @@ export class BoardManager{
         if(refresh) BoardManager.refreshBoard();
     }
     
-    static removePiece(p, refresh){
+    static removePiece(p, refresh, kill){
         let key = BoardBuilder.getCellAlgebraicName(p.position);
         BoardManager.cellsMap.set(key, null);
         
+        //SETTING CHECK: collectspieces
+        if(kill && ModeManager.CURRENT_GAME.settings.collectsPieces)
+        {
+            this.collectPiece(key,p);
+        }
+        
+                
         if(refresh) BoardManager.refreshBoard();
     }
+
+    
 
     static clearCell(v, refresh){
         let id = BoardBuilder.getCellAlgebraicName(v);
@@ -105,6 +116,40 @@ export class BoardManager{
     }
     /////////////////////////////////////////////////////////////////////////////////
     
+
+    ///////COLLECTED PIECE BOXES//////////////////
+    static resetPieceBoxes(){
+        DOM_Utils.CLEAR_PIECE_BOXES();
+    }
+
+    static collectPiece(key, piece){
+        
+        let cell      = document.getElementById(key);
+        let copy_cell = cell.cloneNode(true);
+        copy_cell.id = `${piece.name}_${piece.color}_eliminated`; // <-- important, change the id to enything else
+        copy_cell.style.background = "transparent";
+        
+        let box_id = (piece.color == "black") ? "box_white" : "box_black";
+        
+        
+        let box = document.getElementById(box_id);
+        box.appendChild(copy_cell);
+    } 
+    /////////////////////////////////////////////
+
+    //SETTING: tracks moves
+    static TrackMove(move){
+        if(ModeManager.CURRENT_GAME.settings.tracksMoves)
+        {
+            BoardBuilder.appendMoveTrackerEntry(move);
+        }
+    }
+ 
+   static resetMoveTracker(){
+       DOM_Utils.CLEAR_MOVE_TRACKER();
+   }
+
+
     static movePiece(id, newPos, refresh){
         let p = BoardManager.cellsMap.get(id);
         if(p){
@@ -114,6 +159,8 @@ export class BoardManager{
             
             p.position = newPos;
             p.moves ++;
+            
+            
             
             if(refresh) BoardManager.refreshBoard();
         }

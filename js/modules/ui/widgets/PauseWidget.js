@@ -185,7 +185,7 @@ export class PauseWidget extends KeyWidget{
             .addClass("d-flex")
             .addClass("flex-column")
             .addClass("align-items-center")
-            .setInnerHTML("<h2>ESCACS</h2>")
+            .setInnerHTML("<h2>ChessJS</h2>")
             .addToDom(this.elements["pause_container"]);
         
         this.elements[name] = e;

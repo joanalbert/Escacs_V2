@@ -11,23 +11,45 @@
 
 .chessBoard{
     display: flex;
+    align-items: center;
     flex-direction: column;
     background-color: gray;
+    position: relative;
 }
 
 .chessRow{
     position: relative;
     display: flex;
     justify-content: center;
-    padding: 0px;    
+    padding: 0px;
+    background-color: darkblue;
+}
+
+.pieceBoxTop{
+    min-height: 87px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-self: flex-end;
+    padding: 4px;
+    /*border: 3px solid darkblue;*/
+    background: darkblue;
+    width: 100%;
+}
+
+.pieceBoxBottom{
+    align-self: flex-start;
+    justify-content: flex-start;
 }
 
 
-
 .chessCell{
+    min-width: 70px;
     width: 70px;
     height: 70px;
+    min-height: 70px;
     margin: 1px;
+    padding: 5px;
     background-color: black;
     display: flex;
     flex-direction: column;
