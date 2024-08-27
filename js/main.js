@@ -1,3 +1,6 @@
+/*static utils*/
+import {StaticUtils} from "/js/modules/StaticUtils/StaticUtils.js";
+
 /*core modules*/
 import {BoardBuilder} from "/js/modules/board/BoardBuilder.js";
 import {BoardManager} from "/js/modules/board/BoardManager.js";
@@ -36,12 +39,15 @@ let dimensions = {
     "width": 8,
     "height": 8
 }
-
 BoardManager.boardDimensions = dimensions;
-let board = new BoardBuilder(dimensions).build();
-let movesManager = new MovesManager();
 
-ModeManager.LaunchMode(MODES.NORMAL_MATCH);
+
+/*let boardBuilder = new BoardBuilder(dimensions);
+let movesManager = new MovesManager();*/
+
+StaticUtils.init();
+
+ModeManager.LaunchMode(MODES.NORMAL_MATCH, StaticUtils.boardBuilder); //the mode launch builds the board
 console.log(ModeManager.GAME_IN_PROGRESS);
 
 

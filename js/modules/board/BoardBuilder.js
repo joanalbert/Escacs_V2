@@ -1,4 +1,5 @@
 import {Vector} from "/js/modules/math/Vector.js"; 
+import {ModeSettings} from "/js/modules/modes/ModeSettings.js";
 
 export class BoardBuilder{
     
@@ -8,17 +9,21 @@ export class BoardBuilder{
         this.dimensions = dimensions;
     }
     
-    build(){
-        BoardBuilder.IS_BUILT = true;
-        return this.buildBoard();
+
+    destroyBoard(){
+        console.log("deleting board");
+        let board = document.getElementsByClassName("chessBoard")[0];
+        board.remove();
     }
-    
-    buildBoard(){
+        
+    buildBoard(modeSettings){       
        let board = this.makeBoard();
         
        //piece box top    
-       let box = this.makePieceBox_top(); 
-       board.appendChild(box);
+       if(modeSettings.collectsPieces){     
+            let box = this.makePieceBox_top(); 
+            board.appendChild(box);
+       }
        //
         
        //build actual grid    
@@ -34,19 +39,29 @@ export class BoardBuilder{
        }
     
        //piece box bottom
-       let box2 = this.makePieceBox_bottom(); 
-       board.appendChild(box2);    
+        if(modeSettings.collectsPieces){  
+            let box2 = this.makePieceBox_bottom(); 
+            board.appendChild(box2);   
+       }
        //    
 
-       let moveTracker = BoardBuilder.makeMoveTrackerContainer();
-       board.appendChild(moveTracker);    
+        
+       //move tracker box    
+       if(modeSettings.tracksMoves){    
+            let moveTracker = BoardBuilder.makeMoveTrackerContainer();
+            board.appendChild(moveTracker);    
+       }
+       //
         
        document.getElementById("board_container").appendChild(board);
-         
+       BoardBuilder.IS_BUILT = true;
+        
+        
        return board;  
     }
 
      makeBoard(){
+        console.log("making board");
         let board = document.createElement("div");
         board.classList.add("chessBoard");
                   

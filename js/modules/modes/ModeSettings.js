@@ -5,6 +5,12 @@ export class ModeSettings {
         this.tracksMoves    = null;
         this.moveTime       = null;
         this.collectsPieces = null;
+        this.boardSize      = null;
+    }
+    
+    BoardSize(vSize){
+        this.boardSize = vSize;
+        return this;
     }
     
     TracksTime(setting){

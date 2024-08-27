@@ -1,3 +1,5 @@
+import {StaticUtils} from "/js/modules/StaticUtils/StaticUtils.js";
+
 import { MODES } from "/js/modules/modes/ModesEnum.js";
 import {NormalMatch} from "/js/modules/modes/NormalMatch.js";
 import {TestMode} from "/js/modules/modes/TestMode.js";
@@ -15,28 +17,31 @@ export class ModeManager {
 
     static LaunchMode(mode){
         
-        //before launching any mode, let's first check if a borad has been built or not
-        if(!ModeManager.CheckBoardExists()){
-            throw new Error("There's no board to play on! We need to build it first");
-        }
-        
-        ModeManager.GAME_IN_PROGRESS = true;
-        
         //if there's a game in progress
         if(ModeManager.CURRENT_GAME != null){
             //throw new Error("not yet buddy")
             BoardManager.resetBoard();
-            BoardManager.resetPieceBoxes();
-            BoardManager.resetMoveTracker();
+            //BoardManager.resetPieceBoxes();
+            //BoardManager.resetMoveTracker();
+            StaticUtils.boardBuilder.destroyBoard();
         }
         
-        let game = ModeManager.INSTANTIATE_GAME(mode);
+        
+        let game = ModeManager.INSTANTIATE_GAME(mode);       
+        StaticUtils.boardBuilder.buildBoard(game.settings); //we build/rebuild the entire board and ui everytime a mode is launched
+        
+        
+        ModeManager.GAME_IN_PROGRESS = true;
+        
+        
+        
+        
         
         ModeManager.CURRENT_GAME = game;
         ModeManager.CURRENT_GAME.setup();
         
         //update board UI based on this mode's settings
-        ModeManager.notify_board_based_on_settings();
+        //ModeManager.notify_board_based_on_settings();
         
         
         console.log(`now playing: ${game.mode_id}`);

@@ -47,7 +47,8 @@ export class TestMode extends GameMode{
         let settings = new ModeSettings()
                            .TracksMoves(false)
                            .TracksTime(false)
-                           .CollectsPieces(false);
+                           .CollectsPieces(true)
+                           .BoardSize(new Vector(8,8));
         return settings;
     }
 }

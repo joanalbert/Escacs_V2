@@ -42,7 +42,8 @@ export class NormalMatch extends GameMode {
         let settings = new ModeSettings()
                            .TracksMoves(true)
                            .TracksTime(true)
-                           .CollectsPieces(true);
+                           .CollectsPieces(true)
+                           .BoardSize(new Vector(8,8));
         return settings;
     }
     
