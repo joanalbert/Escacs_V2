@@ -34,42 +34,15 @@ let pw = new PauseWidget();
 UIEventManager.EVENT_SETUP();
 
 
-
 let dimensions = {
     "width": 8,
     "height": 8
 }
+
 BoardManager.boardDimensions = dimensions;
 
 
-/*let boardBuilder = new BoardBuilder(dimensions);
-let movesManager = new MovesManager();*/
-
-StaticUtils.init();
-
-ModeManager.LaunchMode(MODES.NORMAL_MATCH, StaticUtils.boardBuilder); //the mode launch builds the board
+//the mode launch builds the board
+ModeManager.LaunchMode(MODES.NORMAL_MATCH, StaticUtils.boardBuilder); 
 console.log(ModeManager.GAME_IN_PROGRESS);
 
-
-
-/*let rook = new Rook(new Vector(4,5), "white");
-let rook2 = new Rook(new Vector(6,3), "black");
-
-let bishop = new Bishop(new Vector(3, 6), "white");
-
-let pawn1 = new Pawn(new Vector(1, 7), "white");
-let pawn2 = new Pawn(new Vector(1, 1), "black");
-
-let king = new King(new Vector(7,7), "white");
-let queen = new Queen(new Vector(5,7), "black");
-
-let knight = new Knight(new Vector(2,7), "black");
-
-BoardManager.addPiece(rook, true);
-BoardManager.addPiece(rook2, true);
-BoardManager.addPiece(bishop, true);
-BoardManager.addPiece(pawn1, true);
-BoardManager.addPiece(pawn2, true);
-BoardManager.addPiece(king, true);
-BoardManager.addPiece(queen, true);
-BoardManager.addPiece(knight, true);*/

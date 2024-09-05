@@ -17,33 +17,30 @@ export class ModeManager {
 
     static LaunchMode(mode){
         
-        //if there's a game in progress
-        if(ModeManager.CURRENT_GAME != null){
-            //throw new Error("not yet buddy")
-            BoardManager.resetBoard();
-            //BoardManager.resetPieceBoxes();
-            //BoardManager.resetMoveTracker();
-            StaticUtils.boardBuilder.destroyBoard();
-        }
+        //refresh static board builder
+        StaticUtils.init_board_builder();
         
+        //reset the logic board map and destroy the board ui
+        if(ModeManager.GAME_IN_PROGRESS) BoardManager.resetBoard();
+        if(BoardBuilder.IS_BUILT) StaticUtils.boardBuilder.destroyBoard();
         
+    
+        //rebuild board ui everytime a mode is launched
         let game = ModeManager.INSTANTIATE_GAME(mode);       
-        StaticUtils.boardBuilder.buildBoard(game.settings); //we build/rebuild the entire board and ui everytime a mode is launched
+        StaticUtils.boardBuilder.buildBoard(game.settings);
         
-        
+        //after we've rebuilt the board, we refresh the static moves manager
+        //this also renews the click listeners for the board
+        StaticUtils.init_moves_manager();
+                
+        //update modemanager flags
         ModeManager.GAME_IN_PROGRESS = true;
-        
-        
-        
-        
-        
         ModeManager.CURRENT_GAME = game;
+        
+        //run the current mode's setup
         ModeManager.CURRENT_GAME.setup();
         
-        //update board UI based on this mode's settings
-        //ModeManager.notify_board_based_on_settings();
-        
-        
+                
         console.log(`now playing: ${game.mode_id}`);
         console.log(ModeManager.CURRENT_GAME.settings);
     }

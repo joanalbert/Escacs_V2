@@ -10,9 +10,11 @@ export class StaticUtils {
     static movesManager;
     static pw;
 
-    static init(){
+    static init_board_builder(){
         StaticUtils.boardBuilder = new BoardBuilder(BoardManager.boardDimensions);
+    }
+    
+    static init_moves_manager(){
         StaticUtils.movesManager = new MovesManager();
-        
     }
 }
